@@ -1,5 +1,4 @@
-module.exports={
-    mongoURI:'mongodb://anu:anucool123@ds119606.mlab.com:21645/eraser',
-    secret:'secret'
-  }
-  
+module.exports = {
+  mongoURI: "mongodb://anany:anant123@ds263156.mlab.com:63156/eraser",
+  secret: "secret"
+};

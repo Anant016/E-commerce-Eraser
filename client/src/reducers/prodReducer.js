@@ -1,4 +1,4 @@
-import { GET_PRODUCT } from "../actions/types";
+import { GET_PRODUCT, GET_CART } from "../actions/types";
 
 const initialState = {
   pencils: null
@@ -10,6 +10,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         pencils: action.payload
+      };
+    case GET_CART:
+      return {
+        ...state,
+        cart: action.payload
       };
 
     default:

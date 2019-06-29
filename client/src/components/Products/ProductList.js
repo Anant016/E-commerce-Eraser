@@ -11,8 +11,9 @@ class Products extends Component {
     //firebase
     this.props.getProducts();
   }
+
   render() {
-    let ProductList = 1;
+    let ProductList = "";
     if (this.props.prod.pencils == null) {
       ProductList = <Spinner />;
     } else {

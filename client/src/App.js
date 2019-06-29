@@ -13,11 +13,12 @@ import store from "./store";
 
 import Navbar from "./components/common/Navbar";
 import Login from "./components/Login";
-import Cart from "./components/Cart";
+
 import PrivateRoute from "./components/common/PrivateRoute";
 import Order from "./components/Order";
 import ProductList from "./components/Products/ProductList";
 import Drawer from "./components/common/Drawer";
+import CartList from "./components/Cart/CartList";
 
 firebase.initializeApp({
   apiKey: "AIzaSyBxZHyhn7J3pfgoK5V2tEL04tOQTg0WnQw",
@@ -65,7 +66,7 @@ class App extends Component {
               />
               <Route exact path="/login" component={Login} />
               <Switch>
-                <PrivateRoute exact path="/cart" component={Cart} />
+                <PrivateRoute exact path="/cart" component={CartList} />
                 <PrivateRoute exact path="/my-orders" component={Order} />
               </Switch>
               <Route exact path="/" component={ProductList} />

@@ -28,7 +28,7 @@ app.use(cors());
 const mongoose = require("mongoose");
 //const db=require('./config/key').mongoURI;
 mongoose
-  .connect("mongodb://anu:anucool123@ds221645.mlab.com:21645/eraser", {
+  .connect("mongodb://anany:anant123@ds263156.mlab.com:63156/eraser", {
     useNewUrlParser: true
   })
   .then(console.log("MongoDbConnected"))

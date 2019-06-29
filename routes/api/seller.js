@@ -62,31 +62,77 @@ router.post("/addorder", (req, res) => {
   });
 });
 
-//Add to cart
+//Add to cart - Done
 router.post("/addcart", (req, res) => {
   let NewProduct = new Cart({
-    product_name: req.body.product_name,
+    name: req.body.name,
     price: req.body.price,
-    quantity: req.body.price
+    qty: req.body.qty,
+    image: req.body.image,
+    desc: req.body.desc,
+    number: req.body.number
   });
-  NewProduct.save(err => {
-    if (err) {
-      res.send(err, 422);
+
+  Cart.findOne({
+    name: req.body.name,
+    price: req.body.price,
+    desc: req.body.desc,
+    number: req.body.number
+  }).then(product => {
+    if (product) {
+      Cart.findOneAndUpdate(
+        {
+          name: req.body.name,
+          price: req.body.price,
+          desc: req.body.desc,
+          number: req.body.number
+        },
+        { $set: { qty: String(Number(product.qty) + Number(req.body.qty)) } },
+        { new: true }
+      )
+        .then(product => res.json(product))
+        .catch(err => console.log(err));
     } else {
-      res.send(NewProduct, 201);
+      NewProduct.save(err => {
+        if (err) {
+          res.send(err, 422);
+        } else {
+          res.send(NewProduct, 201);
+        }
+      });
     }
   });
 });
 
-//get in cart
-router.get("/carts", (req, res) => {
-  Cart.find({}, (err, data) => {
+//GET in cart
+router.post("/cart", (req, res) => {
+  console.log(req.body);
+  Cart.find({ number: req.body.number }, (err, data) => {
     if (err) {
-      res.send(err);
+      res.send(err, 422);
     } else {
-      res.send(data);
+      res.send(data, 200);
     }
   });
+});
+
+router.post("/removefromcart", (req, res) => {
+  Cart.findOneAndRemove(
+    {
+      name: req.body.name,
+      price: req.body.price,
+      desc: req.body.desc,
+      image: req.body.image,
+      number: req.body.number
+    },
+    err => {
+      if (err) {
+        res.send(err, 422);
+      } else {
+        res.send({ success: true }, 200);
+      }
+    }
+  );
 });
 
 //get in order
@@ -102,20 +148,20 @@ router.get("/orders", (req, res) => {
 
 //FIREBASE TESTING AHEAD
 // REALTIME
-router.get("/products", (req, res) => {
-  var ref = db.ref("/Pencils");
-  // Attach an asynchronous callback to read the data at our posts reference
-  // Attach an asynchronous callback to read the data at our posts reference
-  ref.on(
-    "value",
-    function(snapshot) {
-      res.send(snapshot.val());
-    },
-    function(errorObject) {
-      res.send(errorObject.code);
-    }
-  );
-});
+// router.get("/products", (req, res) => {
+//   var ref = db.ref("/Pencils");
+//   // Attach an asynchronous callback to read the data at our posts reference
+//   // Attach an asynchronous callback to read the data at our posts reference
+//   ref.on(
+//     "value",
+//     function(snapshot) {
+//       res.send(snapshot.val());
+//     },
+//     function(errorObject) {
+//       res.send(errorObject.code);
+//     }
+//   );
+// });
 
 //CLOUD FIRESTORE
 router.get("/pencils", (req, res) => {

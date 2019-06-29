@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
-import { addToCart } from "../../actions/productAction";
+import { deleteFromCart } from "../../actions/productAction";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-class Product extends Component {
+class Cart extends Component {
   constructor() {
     super();
     this.state = {
-      qty: "1",
       errors: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
@@ -17,37 +14,25 @@ class Product extends Component {
   }
 
   onSubmit(item) {
-    if (
-      this.props.auth.number == null ||
-      this.props.auth.number == undefined ||
-      this.props.auth.number == ""
-    ) {
-      alert("Please Login");
-    } else {
-      const Product = {
-        qty: this.state.qty,
-        name: item.name,
-        price: item.price,
-        desc: item.desc,
-        image: item.image,
-        number: this.props.auth.number.number
-      };
-      console.log(Product);
-      this.props.addToCart(Product);
-      alert("added to cart");
-    }
-
-    //console.log(Product);
-    //this.props.loginUser(userData);
+    const Product = {
+      name: item.name,
+      price: item.price,
+      desc: item.desc,
+      image: item.image,
+      number: this.props.auth.number.number
+    };
+    this.props.deleteFromCart(Product);
+    window.location.reload();
   }
+
+  //console.log(Product);
+  //this.props.loginUser(userData);
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-
   render() {
     const { item } = this.props;
-    const { auth } = this.props;
     return (
       <div className="ml-2">
         <div
@@ -80,18 +65,18 @@ class Product extends Component {
                 <button
                   onClick={() => this.onSubmit(item)}
                   href="#"
-                  className="btn btn-primary"
+                  className="btn btn-danger"
                   style={{ width: "100px" }}
                 >
-                  Buy
+                  Remove
                 </button>
               </div>
               <div className="d-flex flex-col" style={{ margginLeft: "0" }}>
                 <input
                   type="number"
                   className="form-control"
-                  placeholder="1"
-                  min="1"
+                  placeholder={item.qty}
+                  min="0"
                   name="qty"
                   onChange={this.onChange}
                   value={this.state.qty}
@@ -111,5 +96,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addToCart }
-)(withRouter(Product));
+  { deleteFromCart }
+)(withRouter(Cart));

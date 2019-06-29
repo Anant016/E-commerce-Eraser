@@ -44,6 +44,11 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link" to="/myorders">
+            My Orders
+          </Link>
+        </li>
+        <li className="nav-item">
           <a
             href=""
             onClick={this.onLogoutClick.bind(this)}
@@ -62,7 +67,7 @@ class Navbar extends Component {
         mb-4"
         >
           <div className="container mb-2 mt-1">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand ml-5" to="/">
               <b>Eraser</b>
             </Link>
             <button
