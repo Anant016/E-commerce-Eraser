@@ -23,7 +23,9 @@ class Cart extends Component {
       number: this.props.auth.number.number
     };
     this.props.deleteFromCart(Product);
-    window.location.reload();
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   }
 
   //console.log(Product);
