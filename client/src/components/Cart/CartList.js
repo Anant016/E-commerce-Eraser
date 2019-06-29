@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getCartItems } from "../../actions/productAction";
 import Spinner from "../common/Spinner";
+import { Link } from "react-router-dom";
 
 import Cart from "./Cart";
 
@@ -40,6 +41,12 @@ class CartList extends Component {
           <b>Cart</b>
         </div>
         <div className="row">{CartList}</div>
+        <br />
+        <div style={{ textAlign: "center" }}>
+          <Link to="/address" className="btn btn-success">
+            Confirm Order
+          </Link>
+        </div>
       </div>
     );
   }

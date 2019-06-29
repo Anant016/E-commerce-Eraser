@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { deleteFromCart } from "../../actions/productAction";
+import { deleteFromCart, updateQty } from "../../actions/productAction";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -7,6 +7,7 @@ class Cart extends Component {
   constructor() {
     super();
     this.state = {
+      qty: "",
       errors: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
@@ -28,8 +29,12 @@ class Cart extends Component {
   //console.log(Product);
   //this.props.loginUser(userData);
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(item) {
+    item.qty = this.refs.qty.value;
+    console.log(item);
+    this.setState({ qty: this.refs.qty.value });
+
+    this.props.updateQty(item);
   }
   render() {
     const { item } = this.props;
@@ -77,8 +82,9 @@ class Cart extends Component {
                   className="form-control"
                   placeholder={item.qty}
                   min="0"
+                  ref="qty"
                   name="qty"
-                  onChange={this.onChange}
+                  onChange={() => this.onChange(item)}
                   value={this.state.qty}
                 />
               </div>
@@ -96,5 +102,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { deleteFromCart }
+  { deleteFromCart, updateQty }
 )(withRouter(Cart));

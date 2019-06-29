@@ -60,3 +60,15 @@ export const deleteFromCart = data => dispatch => {
       })
     );
 };
+
+export const updateQty = item => dispatch => {
+  axios
+    .post("/seller/updateQty", item)
+    .then(res => console.log(res))
+    .catch(err =>
+      dispatch({
+        type: GET_ERROR,
+        payload: err.response.data
+      })
+    );
+};

@@ -116,6 +116,7 @@ router.post("/cart", (req, res) => {
   });
 });
 
+//remove from cart
 router.post("/removefromcart", (req, res) => {
   Cart.findOneAndRemove(
     {
@@ -133,6 +134,23 @@ router.post("/removefromcart", (req, res) => {
       }
     }
   );
+});
+
+//update qty in cart
+router.post("/updateQty", (req, res) => {
+  Cart.findOneAndUpdate(
+    {
+      name: req.body.name,
+      price: req.body.price,
+      desc: req.body.desc,
+      image: req.body.image,
+      number: req.body.number
+    },
+    { $set: { qty: req.body.qty } },
+    { new: true }
+  )
+    .then(product => res.json(product))
+    .catch(err => console.log(err));
 });
 
 //get in order
