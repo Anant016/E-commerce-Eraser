@@ -30,7 +30,7 @@ class Product extends Component {
         price: item.price,
         desc: item.desc,
         image: item.image,
-        number: this.props.auth.number.number
+        number: this.props.auth.number
       };
       console.log(Product);
       this.props.addToCart(Product);

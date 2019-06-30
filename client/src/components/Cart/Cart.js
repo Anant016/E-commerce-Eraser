@@ -20,7 +20,7 @@ class Cart extends Component {
       price: item.price,
       desc: item.desc,
       image: item.image,
-      number: this.props.auth.number.number
+      number: this.props.auth.number
     };
     this.props.deleteFromCart(Product);
     window.location.reload();

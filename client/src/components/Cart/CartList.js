@@ -15,7 +15,7 @@ class CartList extends Component {
   }
   componentDidMount() {
     var data = {
-      number: this.props.auth.number.number
+      number: this.props.auth.number
     };
     this.props.getCartItems(data);
   }
