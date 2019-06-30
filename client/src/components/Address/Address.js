@@ -41,7 +41,8 @@ class Address extends Component {
       _id: this.props.prod.addressIndex,
       number: this.props.auth.number
     };
-    this.props.addToOrder(Order);
+    this.props.addToOrder(Order, this.props.history);
+    this.props.history.push("/myorders");
   }
 
   render() {

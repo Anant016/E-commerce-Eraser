@@ -135,11 +135,12 @@ export const saveAddressIndex = data => {
   };
 };
 
-export const addToOrder = data => dispatch => {
+export const addToOrder = (data, history) => dispatch => {
   axios
     .post("/seller/addToOrder", data)
     .then(res => {
       console.log(res.data);
+      alert("order placed");
     })
     .catch(err =>
       dispatch({

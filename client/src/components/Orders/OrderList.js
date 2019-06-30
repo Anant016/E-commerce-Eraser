@@ -37,7 +37,7 @@ class OrderList extends Component {
     return (
       <div className="ml-5">
         <div className=" lead jumbotron mr-5">
-          <b>Cart</b>
+          <b>My Orders</b>
         </div>
         <div className="row ml-2">{OrderList}</div>
         <br />
