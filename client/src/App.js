@@ -5,7 +5,7 @@ import { setCurrentUser, logOut } from "./actions/authActions";
 import jwt_decode from "jwt-decode";
 
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import * as firebase from "firebase";
 
 import { Provider } from "react-redux";
