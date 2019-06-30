@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Cart = require("../../models/Cart");
 const Order = require("../../models/Order");
+const Address = require("../../models/Address");
 
 const firebase = require("firebase");
 
@@ -104,9 +105,9 @@ router.post("/addcart", (req, res) => {
   });
 });
 
-//GET in cart
+//GET in cart - Done
 router.post("/cart", (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   Cart.find({ number: req.body.number }, (err, data) => {
     if (err) {
       res.send(err, 422);
@@ -116,7 +117,7 @@ router.post("/cart", (req, res) => {
   });
 });
 
-//remove from cart
+//remove from cart - Done
 router.post("/removefromcart", (req, res) => {
   Cart.findOneAndRemove(
     {
@@ -136,7 +137,7 @@ router.post("/removefromcart", (req, res) => {
   );
 });
 
-//update qty in cart
+//update qty in cart - Done
 router.post("/updateQty", (req, res) => {
   Cart.findOneAndUpdate(
     {
@@ -151,6 +152,56 @@ router.post("/updateQty", (req, res) => {
   )
     .then(product => res.json(product))
     .catch(err => console.log(err));
+});
+
+//add Address - Done
+router.post("/addAddress", (req, res) => {
+  let NewAddress = new Address({
+    name: req.body.name,
+    landmark: req.body.landmark,
+    address: req.body.address,
+    pincode: req.body.pincode,
+    number: req.body.number
+  });
+  NewAddress.save(err => {
+    if (err) {
+      res.send(err, 422);
+    } else {
+      res.send(NewAddress, 201);
+    }
+  });
+});
+
+//delete Address
+router.post("/deleteaddress", (req, res) => {
+  Address.findOneAndRemove(
+    {
+      name: req.body.name,
+      landmark: req.body.landmark,
+      address: req.body.address,
+      pincode: req.body.pincode,
+      number: req.body.number
+    },
+    err => {
+      if (err) {
+        res.send(err, 422);
+      } else {
+        res.send({ success: true }, 200);
+      }
+    }
+  );
+});
+
+//get Address -Done
+router.post("/getaddresses", (req, res) => {
+  console.log(req.body.number);
+  Address.find({ number: req.body.number }, (err, data) => {
+    if (err) {
+      res.send(err, 422);
+    } else {
+      res.send(data, 200);
+    }
+  });
 });
 
 //get in order

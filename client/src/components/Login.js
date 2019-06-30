@@ -11,12 +11,12 @@ import { withRouter } from "react-router-dom";
 class Login extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/cart");
+      this.props.history.push("/");
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/cart");
+      this.props.history.push("/");
     }
 
     // if (nextProps.errors) {

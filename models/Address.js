@@ -1,31 +1,27 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const OrderSchema = new Schema({
+const AddressSchema = new Schema({
   name: {
     type: String,
     required: true
   },
-  price: {
+  address: {
     type: String,
     required: true
   },
-  desc: {
+  landmark: {
     type: String,
     required: true
   },
-  qty: {
-    type: String,
+  pincode: {
+    type: Number,
     required: true
   },
   number: {
     type: String,
     required: true
-  },
-  image: {
-    type: String,
-    required: true
   }
 });
 
-module.exports = Order = mongoose.model("orders", OrderSchema);
+module.exports = Address = mongoose.model("addresss", AddressSchema);

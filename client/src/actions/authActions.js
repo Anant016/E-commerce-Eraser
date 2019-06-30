@@ -35,7 +35,7 @@ export const loginUser = (number, history) => dispatch => {
     }
   });
 
-  history.push("/cart");
+  history.push("/");
 };
 
 export const logOut = history => dispatch => {

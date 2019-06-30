@@ -15,10 +15,13 @@ import Navbar from "./components/common/Navbar";
 import Login from "./components/Login";
 
 import PrivateRoute from "./components/common/PrivateRoute";
-import Order from "./components/Order";
 import ProductList from "./components/Products/ProductList";
 import Drawer from "./components/common/Drawer";
 import CartList from "./components/Cart/CartList";
+import OrderList from "./components/Orders/OrderList";
+import Address from "./components/Address/Address";
+import Payment from "./components/Payment/Payment";
+import AddAddress from "./components/Address/AddAddress";
 
 firebase.initializeApp({
   apiKey: "AIzaSyBxZHyhn7J3pfgoK5V2tEL04tOQTg0WnQw",
@@ -67,7 +70,10 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Switch>
                 <PrivateRoute exact path="/cart" component={CartList} />
-                <PrivateRoute exact path="/my-orders" component={Order} />
+                <PrivateRoute exact path="/my-orders" component={OrderList} />
+                <PrivateRoute exact path="/address" component={Address} />
+                <PrivateRoute exact path="/addaddress" component={AddAddress} />
+                <PrivateRoute exact path="/payment" component={Payment} />
               </Switch>
               <Route exact path="/" component={ProductList} />
             </main>
