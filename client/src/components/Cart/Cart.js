@@ -78,7 +78,7 @@ class Cart extends Component {
                   type="number"
                   className="form-control"
                   placeholder={item.qty}
-                  min="0"
+                  min="1"
                   ref="qty"
                   name="qty"
                   onChange={() => this.onChange(item)}

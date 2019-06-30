@@ -70,7 +70,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Switch>
                 <PrivateRoute exact path="/cart" component={CartList} />
-                <PrivateRoute exact path="/my-orders" component={OrderList} />
+                <PrivateRoute exact path="/myorders" component={OrderList} />
                 <PrivateRoute exact path="/address" component={Address} />
                 <PrivateRoute exact path="/addaddress" component={AddAddress} />
                 <PrivateRoute exact path="/payment" component={Payment} />

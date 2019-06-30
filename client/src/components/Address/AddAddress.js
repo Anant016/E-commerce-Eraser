@@ -32,6 +32,7 @@ class AddAddress extends Component {
       number: this.props.auth.number
     };
     this.props.addAddress(Address, this.props.history);
+    this.props.history.push("/address");
   }
 
   render() {

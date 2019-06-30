@@ -3,7 +3,11 @@ import { node } from "prop-types";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { addAddress, getAddresses } from "../../actions/productAction";
+import {
+  addAddress,
+  getAddresses,
+  addToOrder
+} from "../../actions/productAction";
 import { withRouter } from "react-router-dom";
 import AddressItem from "./AddressItem.js";
 
@@ -33,14 +37,11 @@ class Address extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   onSubmit(item) {
-    var Address = {
-      name: item.name,
-      address: item.address,
-      landmark: item.landmark,
-      pincode: item.pincode,
+    var Order = {
+      _id: this.props.prod.addressIndex,
       number: this.props.auth.number
     };
-    console.log(Address);
+    this.props.addToOrder(Order);
   }
 
   render() {
@@ -71,7 +72,7 @@ class Address extends Component {
               {/* Get Address */}
               {AddressList}
               {/* Add Address Button */}
-              <Link className="btn btn-info" to="/addaddress">
+              <Link className="btn btn-info mt-3 ml-3" to="/addaddress">
                 Add Address
               </Link>
             </div>
@@ -80,14 +81,24 @@ class Address extends Component {
               <div className="jumbotron lead">
                 <b>Select Payment method</b>
               </div>
+              <a
+                className="btn btn-success ml-5 mt-3"
+                style={{ color: "white" }}
+              >
+                Cash
+              </a>
             </div>
           </div>
           {/* CONFIRM BUTTON */}
-          <div style={{ textAlign: "center", color: "white" }}>
-            <button type="submit" className="btn btn-success">
-              Confirm
-            </button>
-          </div>
+          {this.props.prod.addressIndex ? (
+            <div style={{ textAlign: "center", color: "white" }}>
+              <button type="submit" className="btn btn-success">
+                Confirm
+              </button>
+            </div>
+          ) : (
+            <div />
+          )}
         </form>
       </div>
     );
@@ -101,5 +112,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addAddress, getAddresses }
+  { addAddress, getAddresses, addToOrder }
 )(withRouter(Address));

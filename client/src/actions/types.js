@@ -6,3 +6,4 @@ export const GET_PRODUCT = "GET_PRODUCT";
 export const GET_CART = "GET_CART";
 export const GET_ADDRESS = "GET_ADDRESS";
 export const SAVE_ADDRESS_INDEX = "SAVE_ADDRESS_INDEX";
+export const GET_ORDER = "GET_ORDER";

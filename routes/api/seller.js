@@ -47,22 +47,6 @@ router.get("/test", (req, res) => {
 //     })
 // })
 
-//Add when order is placed
-router.post("/addorder", (req, res) => {
-  let NewProduct = new Order({
-    product_name: req.body.product_name,
-    price: req.body.price,
-    quantity: req.body.price
-  });
-  NewProduct.save(err => {
-    if (err) {
-      res.send(err, 422);
-    } else {
-      res.send(NewProduct, 201);
-    }
-  });
-});
-
 //Add to cart - Done
 router.post("/addcart", (req, res) => {
   let NewProduct = new Cart({
@@ -176,11 +160,7 @@ router.post("/addAddress", (req, res) => {
 router.post("/deleteaddress", (req, res) => {
   Address.findOneAndRemove(
     {
-      name: req.body.name,
-      landmark: req.body.landmark,
-      address: req.body.address,
-      pincode: req.body.pincode,
-      number: req.body.number
+      _id: req.body._id
     },
     err => {
       if (err) {
@@ -204,9 +184,86 @@ router.post("/getaddresses", (req, res) => {
   });
 });
 
-//get in order
-router.get("/orders", (req, res) => {
-  Order.find({}, (err, data) => {
+// ----------------------------------------------------------------
+
+// When order is placed
+router.post("/addToOrder", (req, res) => {
+  //cart to order
+  Cart.find({ number: req.body.number }, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      //copy same
+      // data.map(item => {
+      //   let OrderItem = new Order({
+      //     name: item.name,
+      //     price: item.price,
+      //     desc: item.desc,
+      //     qty: item.qty,
+      //     number: item.number,
+      //     image: item.image
+      //   });
+      //   OrderItem.save(err => {
+      //     if (err) {
+      //       console.log(err);
+      //       //  res.send(err);
+      //     } else {
+      //       console.log("order added");
+      //     }
+      //   });
+      // });
+      var OrderArray = [];
+      data.map(item => {
+        let OrderItem = {
+          name: item.name,
+          price: item.price,
+          desc: item.desc,
+          qty: item.qty,
+          //number: item.number,
+          image: item.image
+        };
+        OrderArray.push(OrderItem);
+      });
+      Address.findOne({ _id: req.body._id }, (err, data) => {
+        console.log("Address:" + data);
+        let wholeOrder = new Order({
+          items: OrderArray,
+          name: data.name,
+          address: data.address,
+          landmark: data.landmark,
+          pincode: data.pincode,
+          number: data.number
+        });
+        wholeOrder.save(err => {
+          if (err) {
+            console.log(err);
+            //  res.send(err);
+          } else {
+            console.log("order added");
+          }
+        });
+      });
+    }
+  });
+
+  //cart delete
+  Cart.remove({ number: req.body.number }, (err, data) => {
+    if (err) {
+      req.send(err);
+    } else {
+      console.log("cart deleted");
+    }
+  });
+
+  //nodemailer- address,order
+  //imp
+  //to be done
+  //See here
+});
+
+// Get in order -Done
+router.post("/orders", (req, res) => {
+  Order.find({ number: req.body.number }, (err, data) => {
     if (err) {
       res.send(err);
     } else {

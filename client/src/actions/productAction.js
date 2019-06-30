@@ -3,7 +3,8 @@ import {
   GET_ERROR,
   GET_CART,
   GET_ADDRESS,
-  SAVE_ADDRESS_INDEX
+  SAVE_ADDRESS_INDEX,
+  GET_ORDER
 } from "./types";
 import axios from "axios";
 
@@ -87,7 +88,6 @@ export const addAddress = (item, history) => dispatch => {
     .post("/seller/addAddress", item)
     .then(res => {
       console.log(res);
-      history.push("/address");
     })
     .catch(err =>
       dispatch({
@@ -115,10 +115,54 @@ export const getAddresses = data => dispatch => {
     );
 };
 
+export const deleteOneAddress = data => dispatch => {
+  axios
+    .post("/seller/deleteaddress", data)
+    .then(res => console.log(res))
+    .catch(err =>
+      dispatch({
+        type: GET_ERROR,
+        payload: err.response.data
+      })
+    );
+};
+
 export const saveAddressIndex = data => {
   console.log(data);
   return {
     type: SAVE_ADDRESS_INDEX,
     payload: data
   };
+};
+
+export const addToOrder = data => dispatch => {
+  axios
+    .post("/seller/addToOrder", data)
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERROR,
+        payload: err.response.data
+      })
+    );
+};
+
+export const getOrderItems = data => dispatch => {
+  console.log(data);
+  axios
+    .post("/seller/orders", data)
+    .then(res => {
+      dispatch({
+        type: GET_ORDER,
+        payload: res.data
+      });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERROR,
+        payload: err.response.data
+      })
+    );
 };

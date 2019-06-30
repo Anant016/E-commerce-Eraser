@@ -40,12 +40,16 @@ class CartList extends Component {
         <div className=" lead jumbotron mr-5">
           <b>Cart</b>
         </div>
-        <div className="row">{CartList}</div>
+        <div className="row ml-2">{CartList}</div>
         <br />
         <div style={{ textAlign: "center" }}>
-          <Link to="/address" className="btn btn-success">
-            Confirm Order
-          </Link>
+          {this.props.prod.cart >= 0 ? (
+            <div />
+          ) : (
+            <Link to="/address" className="btn btn-success">
+              Confirm Order
+            </Link>
+          )}
         </div>
       </div>
     );
