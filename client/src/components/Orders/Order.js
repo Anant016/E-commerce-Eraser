@@ -5,7 +5,8 @@ import Spinner from "../common/Spinner";
 export default class Order extends Component {
   render() {
     const { order } = this.props;
-    console.log(order);
+    // console.log(order);
+    var orderid=order._id.slice(19,order._id.length);
     let Order = "";
     if (order.items == null) {
       Order = <Spinner />;
@@ -19,7 +20,12 @@ export default class Order extends Component {
     return (
       <div className="ml-5 mr-5">
         <div className="card">
-          <div className="card-body">{Order}</div>
+          <div className="card-body">
+          <div><b>Order Id: </b>{orderid}</div>
+          <hr/>
+          {Order}
+          <b>Total Price:</b> Rs {order.totalPrice}
+          </div>
         </div>
       </div>
     );

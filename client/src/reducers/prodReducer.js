@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
         addressIndex: null
       };
     case SAVE_ADDRESS_INDEX:
-      console.log("reached");
+      // console.log("reached");
       return {
         ...state,
         addressIndex: action.payload

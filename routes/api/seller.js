@@ -212,6 +212,7 @@ router.post("/addToOrder", (req, res) => {
       //     }
       //   });
       // });
+      var totalPrice=0;
       var OrderArray = [];
       data.map(item => {
         let OrderItem = {
@@ -222,6 +223,7 @@ router.post("/addToOrder", (req, res) => {
           //number: item.number,
           image: item.image
         };
+        totalPrice=totalPrice+(parseFloat(item.price)*parseInt(item.qty))
         OrderArray.push(OrderItem);
       });
       Address.findOne({ _id: req.body._id }, (err, data) => {
@@ -232,7 +234,8 @@ router.post("/addToOrder", (req, res) => {
           address: data.address,
           landmark: data.landmark,
           pincode: data.pincode,
-          number: data.number
+          number: data.number,
+          totalPrice:totalPrice
         });
         wholeOrder.save(err => {
           if (err) {
