@@ -21,7 +21,15 @@ export default class Order extends Component {
       <div className="ml-5 mr-5">
         <div className="card">
           <div className="card-body">
-          <div><b>Order Id: </b>{orderid}</div>
+          <div className="row">
+            <div className="col">
+            <b>Order Id: </b>{orderid}
+            </div>
+            <div className="col lead" style={{fontSize:"0.8em"}}>
+              {order.date}<br/>
+              {order.time}
+            </div>
+          </div>
           <hr/>
           {Order}
           <b>Total Price:</b> Rs {order.totalPrice}

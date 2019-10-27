@@ -193,25 +193,10 @@ router.post("/addToOrder", (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      //copy same
-      // data.map(item => {
-      //   let OrderItem = new Order({
-      //     name: item.name,
-      //     price: item.price,
-      //     desc: item.desc,
-      //     qty: item.qty,
-      //     number: item.number,
-      //     image: item.image
-      //   });
-      //   OrderItem.save(err => {
-      //     if (err) {
-      //       console.log(err);
-      //       //  res.send(err);
-      //     } else {
-      //       console.log("order added");
-      //     }
-      //   });
-      // });
+      const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+let current_datetime = new Date()
+let time_now=current_datetime.getHours() + ":" + current_datetime.getMinutes() 
+let date_now = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear()
       var totalPrice=0;
       var OrderArray = [];
       data.map(item => {
@@ -235,7 +220,9 @@ router.post("/addToOrder", (req, res) => {
           landmark: data.landmark,
           pincode: data.pincode,
           number: data.number,
-          totalPrice:totalPrice
+          totalPrice:totalPrice,
+          date: date_now,
+          time:time_now
         });
         wholeOrder.save(err => {
           if (err) {
