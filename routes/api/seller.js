@@ -6,10 +6,8 @@ const Address = require("../../models/Address");
 
 const firebase = require("firebase");
 
-//const firebasestorage = require("@firebase/storage");
-
 //realtime db
-const db = firebase.database();
+// const db = firebase.database();
 
 //cloud firestore
 const db1 = firebase.firestore();
@@ -26,26 +24,6 @@ const storage = new Storage({
   projectId: projectId
 });
 const myBucket = storage.bucket("eraser-2bd75.appspot.com");
-
-//@route GET api/users/test
-//@desc  Test users route
-//@access Public
-router.get("/test", (req, res) => {
-  res.json({ msg: "Test Works" });
-});
-
-//add 1
-// router.post('/addproduct',(req,res)=>{
-//     let NewProduct = new Product({
-//         product_name:req.body.product_name,
-//         price:req.body.price,
-//         quantity:req.body.price
-//     })
-//     NewProduct.save((err) => {
-//         if (err) {res.send(err, 422)}
-//         else {res.send(NewProduct,201);}
-//     })
-// })
 
 //Add to cart - Done
 router.post("/addcart", (req, res) => {
@@ -91,7 +69,6 @@ router.post("/addcart", (req, res) => {
 
 //GET in cart - Done
 router.post("/cart", (req, res) => {
-  //console.log(req.body);
   Cart.find({ number: req.body.number }, (err, data) => {
     if (err) {
       res.send(err, 422);
@@ -193,11 +170,30 @@ router.post("/addToOrder", (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-let current_datetime = new Date()
-let time_now=current_datetime.getHours() + ":" + current_datetime.getMinutes() 
-let date_now = current_datetime.getDate() + "-" + months[current_datetime.getMonth()] + "-" + current_datetime.getFullYear()
-      var totalPrice=0;
+      const months = [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC"
+      ];
+      let current_datetime = new Date();
+      let time_now =
+        current_datetime.getHours() + ":" + current_datetime.getMinutes();
+      let date_now =
+        current_datetime.getDate() +
+        "-" +
+        months[current_datetime.getMonth()] +
+        "-" +
+        current_datetime.getFullYear();
+      var totalPrice = 0;
       var OrderArray = [];
       data.map(item => {
         let OrderItem = {
@@ -208,7 +204,7 @@ let date_now = current_datetime.getDate() + "-" + months[current_datetime.getMon
           //number: item.number,
           image: item.image
         };
-        totalPrice=totalPrice+(parseFloat(item.price)*parseInt(item.qty))
+        totalPrice = totalPrice + parseFloat(item.price) * parseInt(item.qty);
         OrderArray.push(OrderItem);
       });
       Address.findOne({ _id: req.body._id }, (err, data) => {
@@ -220,9 +216,9 @@ let date_now = current_datetime.getDate() + "-" + months[current_datetime.getMon
           landmark: data.landmark,
           pincode: data.pincode,
           number: data.number,
-          totalPrice:totalPrice,
+          totalPrice: totalPrice,
           date: date_now,
-          time:time_now
+          time: time_now
         });
         wholeOrder.save(err => {
           if (err) {
