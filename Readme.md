@@ -22,17 +22,17 @@ A fully functional e commerce website made on React with Redux, Integrated with 
 
 **_Add directly into the firebase. That's it!!!_**
 
-![alt text](./firebase.png)
+![alt text](./readme/firebase.png)
 
 # Preview
 
-![alt text](./listing.png)
+![alt text](./readme/listing.png)
 
-![alt text](./cart.png)
+![alt text](./readme/cart.png)
 
-![alt text](./address.png)
+![alt text](./readme/address.png)
 
-![alt tetx](./login.png)
+![alt tetx](./readme/login.png)
 
 ## Wondering how to contribute
 
