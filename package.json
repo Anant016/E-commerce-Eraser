@@ -25,7 +25,7 @@
         "cors": "^2.8.5",
         "express": "^4.16.4",
         "firebase": "^5.11.1",
-        "firebase-admin": "^7.3.0",
+        "firebase-admin": "^11.4.1",
         "mongoose": "^5.4.20"
     }
 }
